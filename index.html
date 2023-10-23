@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+<nav class="navbar bg-body-tertiary">
+  <form class="container-fluid justify-content-start">
+    <button class="btn btn-outline-success me-2" type="button">Quiz</button>
+    <button class="btn btn-sm btn-outline-secondary" type="button">Scoreboard</button>
+  </form>
+</nav>
+<div class="container-fluid d-flex flex-direction-column justify-content-center align-items-center" style="width:100%;height:20vh;">
+<button type="button" id="btn" onclick="start()" class="btn btn-primary btn-lg">Start</button>
+ <nav id="main" style="display:none;">
+    <span id="hour">00:</span>
+    <span id="min">00:</span>
+    <span id="sec">00:</span>
+    <span id="count">00</span>
+  </nav>
+</div>
+<div id="quizs" class="ratio ratio-1x1" style="display:none;">
+  
+  <iframe src="Mcqs.html" title="mcqs questions" allowfullscreen></iframe>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+    <script>
+    let second=0,count=0,hour=0,minute=0;
+    function start(){
+      document.getElementById("btn").style="display:none";
+      document.getElementById("main").style="display:block";
+      document.getElementById("quizs").style="display:block";
+    timer = true;
+    stopWatch();
+  }
+  
+  function stopWatch(){
+    if (timer){
+      count++;
+      if(count==100){
+        second+=1;
+        count=0;
+      }
+      if(second==60){
+        minute+=1;
+        second=0;
+      }
+      if(minute==60){
+        hour+=1;
+        minute=0;
+        second=0;
+      }
+      let hrString = hour;
+        let minString = minute;
+        let secString = second;
+        let countString = count;
+ 
+        if (hour < 10) {
+            hrString = "0" + hrString;
+        }
+ 
+        if (minute < 10) {
+            minString = "0" + minString;
+        }
+ 
+        if (second < 10) {
+            secString = "0" + secString;
+        }
+ 
+        if (count < 10) {
+            countString = "0" + countString;
+        }
+  document.getElementById('hour').innerHTML=hrString+":";
+  document.getElementById('min').innerHTML=minString+":";
+  document.getElementById('count').innerHTML=countString;
+  document.getElementById('sec').innerHTML=secString+":";
+      setTimeout(stopWatch,10);
+    }
+  }
+  </script>
+  </body>
+</html>

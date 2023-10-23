@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+    <style>
+      body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f2f2f2;
+}
+
+#quiz-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+button.option {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button.option:hover {
+    background-color: #2980b9;
+}
+
+#result {
+    font-weight: bold;
+}
+
+h1 {
+    color: #333;
+}
+
+#question {
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+#options-container {
+    text-align: left;
+}
+
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>Quiz App</h1>
+        <div id="question-container">
+            <p id="question">Question goes here</p>
+        </div>
+        <div id="options-container">
+            <button class="option" id="option1">Option 1</button>
+            <button class="option" id="option2">Option 2</button>
+            <button class="option" id="option3">Option 3</button>
+            <button class="option" id="option4">Option 4</button>
+        </div>
+        <div id="result-container">
+            <p id="result"></p>
+        </div>
+    </div>
+    <script>
+      const questions = [
+    {
+        question: "What is the capital of France?",
+        options: ["Berlin", "Madrid", "Paris", "Rome"],
+        answer: 2
+    },
+    {
+        question: "What is 2 + 2?",
+        options: ["3", "4", "5", "6"],
+        answer: 1
+    }
+];
+
+const questionElement = document.getElementById("question");
+const options = document.querySelectorAll(".option");
+const resultElement = document.getElementById("result");
+
+let currentQuestion = 0;
+let score = 0;
+
+function loadQuestion() {
+    const current = questions[currentQuestion];
+    questionElement.textContent = current.question;
+    options.forEach((option, index) => {
+        option.textContent = current.options[index];
+    });
+}
+
+function checkAnswer(selectedOption) {
+    const current = questions[currentQuestion];
+    if (current.options[selectedOption] === current.options[current.answer]) {
+        score++;
+    }
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        loadQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    questionElement.style.display = "none";
+    options.forEach((option) => {
+        option.style.display = "none";
+    });
+    resultElement.textContent = `You scored ${score}/${questions.length}`;
+    window.parent.postMessage('stop', "*");
+}
+
+loadQuestion();
+
+options.forEach((option, index) => {
+    option.addEventListener("click", () => {
+        checkAnswer(index);
+    });
+});
+// Called from the iframe
+
+
+    </script>
+</body>
+</html>
