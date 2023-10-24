@@ -92,14 +92,18 @@ const questionElement = document.getElementById("question");
 const options = document.querySelectorAll(".option");
 const resultElement = document.getElementById("result");
 
-var i;
+var i,score;
 if(localStorage.getItem("g")==null){
  i=0;
 }else{
  i=parseInt(localStorage.getItem("g"));
 }
 let currentQuestion = i;
-let score = 0;
+if(localStorage.getItem("score")==null){
+ score=0;
+}else{
+ score=parseInt(localStorage.getItem("score"));
+}
 
 function loadQuestion() {
     const current = questions[currentQuestion];
@@ -115,6 +119,7 @@ function checkAnswer(selectedOption) {
     const current = questions[currentQuestion];
     if (current.options[selectedOption] === current.options[current.answer]) {
         score++;
+        localStorage.setItem("score",score);
     }
     
     currentQuestion++;
@@ -147,4 +152,5 @@ options.forEach((option, index) => {
 
     </script>
 </body>
-</html>
+    </html>
+    
