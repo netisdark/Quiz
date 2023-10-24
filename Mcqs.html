@@ -149,7 +149,12 @@ options.forEach((option, index) => {
 });
 // Called from the iframe
 
-
+window.onmessage = function(event){
+    if (event.data == 'message') {
+        localStorage.clear();
+    }
+};
     </script>
 </body>
-</html>
+    </html>
+    
