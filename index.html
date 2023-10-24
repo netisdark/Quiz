@@ -8,8 +8,31 @@
   </head>
   <body>
 <nav class="navbar bg-body-tertiary">
-  <form class="container-fluid justify-content-start">
-    <button class="btn btn-outline-success me-2" type="button">Quiz</button>
+  
+  <form class="container-fluid justify-content-space-around">
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+ Quiz
+</button>
+
+<div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="staticBackdropLabel">Offcanvas</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+    <div class="input-group mb-3">
+  <span class="input-group-text" id="basic-addon1">@</span>
+  <input type="password" id="password1" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+  <button type="button" id="btn1" onclick="pass()" class="btn btn-secondary">Submit</button>
+  <div class="container-fluid d-flex justify-content-center align-items-center">
+  <button type="button" id="info" style="display:none;" onclick="c()" class="btn btn-info">reset all</button>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
     <button class="btn btn-sm btn-outline-secondary" type="button">Scoreboard</button>
   </form>
 </nav>
@@ -35,7 +58,24 @@
         stop();
     }
 };
-    
+function c(){
+  sessionStorage.clear();
+  localStorage.removeItem("sad");
+  localStorage.removeItem("cat");
+  location.reload();
+}
+    function pass(){
+      var password1;
+      password1=document.getElementById("password1").value;
+      if(password1=="hello world"){
+        document.getElementById("info").style="display:block";
+        document.getElementById("password1").style.display="none";
+        document.getElementById("btn1").style.display="none";
+      }
+      else{
+        alert("wrong Password -.-");
+      }
+    }
     
    var second, count;
    if(localStorage.getItem("sad")==null){
@@ -111,4 +151,4 @@
   </script>
   </body>
   </html>
-  
+    
