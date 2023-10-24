@@ -91,8 +91,13 @@ h1 {
 const questionElement = document.getElementById("question");
 const options = document.querySelectorAll(".option");
 const resultElement = document.getElementById("result");
-let i=parseInt(localStorage.getItem("currents"));
 
+var i;
+if(localStorage.getItem("g")==null){
+ i=0;
+}else{
+ i=parseInt(localStorage.getItem("g"));
+}
 let currentQuestion = i;
 let score = 0;
 
@@ -101,9 +106,9 @@ function loadQuestion() {
     questionElement.textContent = current.question;
     options.forEach((option, index) => {
         option.textContent = current.options[index];
+        localStorage.setItem("g", currentQuestion);
     });
-    localStorage.removeItem("currents");
-    localStorage.setItem("currents", currentQuestion);
+    
 }
 
 function checkAnswer(selectedOption) {
@@ -113,6 +118,7 @@ function checkAnswer(selectedOption) {
     }
     
     currentQuestion++;
+    
     if (currentQuestion < questions.length) {
         loadQuestion();
     } else {
@@ -141,5 +147,4 @@ options.forEach((option, index) => {
 
     </script>
 </body>
-                </html>
-    
+</html>
