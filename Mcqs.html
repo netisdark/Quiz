@@ -80,6 +80,11 @@ h1 {
         question: "What is 2 + 2?",
         options: ["3", "4", "5", "6"],
         answer: 1
+    },
+    {
+        question: "Which is the fastest animal?",
+        options: ["Leopard", "Tiger", "Horse", "Ostrich"],
+        answer: 0
     }
 ];
 
@@ -87,7 +92,8 @@ const questionElement = document.getElementById("question");
 const options = document.querySelectorAll(".option");
 const resultElement = document.getElementById("result");
 
-let currentQuestion = 0;
+let i=localStorage.getItem("currents");
+let currentQuestion = i;
 let score = 0;
 
 function loadQuestion() {
@@ -96,6 +102,7 @@ function loadQuestion() {
     options.forEach((option, index) => {
         option.textContent = current.options[index];
     });
+    localStorage.setItem("currents", currentQuestion);
 }
 
 function checkAnswer(selectedOption) {
@@ -103,6 +110,7 @@ function checkAnswer(selectedOption) {
     if (current.options[selectedOption] === current.options[current.answer]) {
         score++;
     }
+    
     currentQuestion++;
     if (currentQuestion < questions.length) {
         loadQuestion();
@@ -132,4 +140,5 @@ options.forEach((option, index) => {
 
     </script>
 </body>
-</html>
+                </html>
+    
