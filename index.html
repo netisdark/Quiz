@@ -35,8 +35,21 @@
         stop();
     }
 };
-
-    let second=0,count=0,hour=0,minute=0;
+    
+    
+   var second, count;
+   if(localStorage.getItem("sad")==null){
+     second=0;
+   }else{
+     second=parseInt(localStorage.getItem("sad"));
+   }
+   if(localStorage.getItem("cat")==null){
+     count=0;
+   }else{
+     count=parseInt(localStorage.getItem("cat"));
+   }
+    let hour=0
+    let minute=0;
     function stop(){
     timer=false;
   }
@@ -50,8 +63,12 @@
   
   function stopWatch(){
     if (timer){
+      localStorage.setItem("cat", count);
+      count=parseInt(localStorage.getItem("cat"));
       count++;
       if(count==100){
+        localStorage.setItem("sad",second);
+        second=parseInt(localStorage.getItem("sad"));
         second+=1;
         count=0;
       }
@@ -88,9 +105,10 @@
   document.getElementById('min').innerHTML=minString+":";
   document.getElementById('count').innerHTML=countString;
   document.getElementById('sec').innerHTML=secString+":";
-      setTimeout(stopWatch,10);
+      setTimeout(stopWatch,5);
     }
   }
   </script>
   </body>
-</html>
+  </html>
+  
