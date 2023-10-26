@@ -178,15 +178,7 @@ if(localStorage.getItem("score")==null){
  score=parseInt(localStorage.getItem("score"));
 }
 
-function loadQuestion() {
-    const current = questions[currentQuestion];
-    questionElement.textContent = current.question;
-    options.forEach((option, index) => {
-        option.textContent = current.options[index];
-        localStorage.setItem("g", currentQuestion);
-    });
-    
-}
+
 
 function checkAnswer(selectedOption) {
     const current = questions[currentQuestion];
@@ -203,7 +195,15 @@ function checkAnswer(selectedOption) {
         showResult();
     }
 }
-
+function loadQuestion() {
+    const current = questions[currentQuestion];
+    questionElement.textContent = current.question;
+    options.forEach((option, index) => {
+        option.textContent = current.options[index];
+        localStorage.setItem("g", currentQuestion);
+    });
+    window.parent.postMessage('continue', "*");
+}
 function showResult() {
     questionElement.style.display = "none";
     options.forEach((option) => {
@@ -213,7 +213,12 @@ function showResult() {
     window.parent.postMessage('stop', "*");
 }
 
-loadQuestion();
+if (currentQuestion+1 < questions.length) {
+  
+        loadQuestion();
+    } else {
+        showResult();
+    }
 
 options.forEach((option, index) => {
     option.addEventListener("click", () => {
@@ -229,5 +234,5 @@ window.onmessage = function(event){
 };
     </script>
 </body>
-    </html>
+            </html>
     
